@@ -33,7 +33,7 @@ const LoginPage: NextPage = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // TODO > form validation
-    const response = await Axios.post("/api/signup", formData);
+    const response = await Axios.post("/api/login", formData);
     console.log(response);
   };
 
