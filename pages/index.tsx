@@ -1,3 +1,4 @@
+import { NextPage } from "next";
 import styled from "styled-components";
 
 const Container = styled.section`
@@ -22,11 +23,13 @@ const Paragraph = styled.p`
   margin: 1rem 0;
 `;
 
-export default function Home() {
+const HomePage: NextPage = () => {
   return (
     <Container>
       <Title>Under construction</Title>
       <Paragraph>Future survival-alpha RPG system web app</Paragraph>
     </Container>
   );
-}
+};
+
+export default HomePage;
