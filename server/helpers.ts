@@ -46,7 +46,7 @@ export function withParameterValidation(...parameters: string[]) {
   return function (handler: NextApiHandler) {
     return function (req: NextApiRequest, res: NextApiResponse) {
       const missingParameter = parameters.filter(
-        (parameter) => !req.body[parameter]
+        (parameter) => !req.body[parameter] && !req.query[parameter]
       );
 
       if (missingParameter.length) {

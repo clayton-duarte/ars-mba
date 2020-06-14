@@ -8,23 +8,16 @@ import {
 
 const handler: HandlerWithSession = async (req, res) => {
   const user = req.session.get("user");
+  const charId = req.query.charId;
 
+  await dbConnect();
   try {
-    await dbConnect();
-    const newChar = await CharacterModel.create({
-      ...req.body,
-      user: user._id,
-    });
-    return res.json(newChar);
+    const char = await CharacterModel.findOne({ _id: charId, user: user._id });
+    if (!char) return res.status(404).json(char);
+    return res.json(char);
   } catch (err) {
     return res.status(500).json(err);
   }
 };
 
-export default withParameterValidation(
-  "endurance",
-  "strength",
-  "accuracy",
-  "mobility",
-  "name"
-)(withSession(handler));
+export default withParameterValidation("charId")(withSession(handler));

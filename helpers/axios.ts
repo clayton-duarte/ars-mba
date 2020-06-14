@@ -10,6 +10,8 @@ export function useAxios(router: NextRouter) {
     // Axios errors
     if (err.response?.data) alert(err.response.data);
     if (err.response?.status === 401) return router.push("/login");
+    if (err.response?.status === 403) return router.push("/login");
+    if (err.response?.status === 404) return router.push("/404");
     if (err.response) throw new Error(JSON.stringify(err.response));
 
     // Unknown error
