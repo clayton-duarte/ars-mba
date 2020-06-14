@@ -12,10 +12,11 @@ const verifyOrCreateUser = async ({
   username,
   password,
 }: User): Promise<User> => {
+  // Look for a existent user (case insensitive)
   await dbConnect();
-
-  // Look for a existent user
-  const existentUser = await UserModel.findOne({ username });
+  const existentUser = await UserModel.findOne({
+    username: username.toLowerCase(),
+  });
   if (existentUser) {
     // Verify password
     const isPasswordValid = await bcrypt.compare(

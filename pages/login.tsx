@@ -2,24 +2,13 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
+import Fieldset from "../components/Fieldset";
 import { useUser } from "../providers/user";
-import { styled } from "../providers/theme";
 import Button from "../components/Button";
+import Label from "../components/Label";
+import Input from "../components/Input";
+import Form from "../components/Form";
 import { User } from "../types";
-
-const Form = styled.form`
-  padding: 0 1rem;
-`;
-
-const Fieldset = styled.fieldset`
-  margin: 1rem 0;
-  border: none;
-  padding: 0;
-`;
-
-const Label = styled.label``;
-
-const Input = styled.input``;
 
 const LoginPage: NextPage = () => {
   const [formData, setFormData] = useState<User>();
