@@ -2,8 +2,9 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { NextPage } from "next";
-import Axios from "axios";
 
+import Button from "../components/Button";
+import { useAxios } from "../helpers/axios";
 import { User } from "../types";
 
 const Form = styled.form`
@@ -20,11 +21,10 @@ const Label = styled.label``;
 
 const Input = styled.input``;
 
-const Button = styled.button``;
-
 const LoginPage: NextPage = () => {
-  const [formData, setFormData] = useState<User>();
   const router = useRouter();
+  const [formData, setFormData] = useState<User>();
+  const { apiClient, errorHandler } = useAxios(router);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,8 +35,12 @@ const LoginPage: NextPage = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // TODO > form validation
-    const response = await Axios.post("/api/login", formData);
-    if (response.data.isSuccess) router.push("/user");
+    try {
+      const response = await apiClient.post("/login", formData);
+      if (response.data.isSuccess) router.push("/user");
+    } catch (err) {
+      errorHandler(err);
+    }
   };
 
   return (

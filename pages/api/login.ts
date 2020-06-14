@@ -1,3 +1,5 @@
+import bcrypt from "bcrypt";
+
 import { User, HandlerWithSession } from "../../types";
 import { UserModel } from "../../server/models";
 import {
@@ -12,19 +14,34 @@ const verifyOrCreateUser = async ({
 }: User): Promise<User> => {
   await dbConnect();
 
-  const existentUser = await UserModel.findOne({ username, password });
-  if (existentUser) return existentUser;
+  // Look for a existent user
+  const existentUser = await UserModel.findOne({ username });
+  if (existentUser) {
+    // Verify password
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      existentUser.password
+    );
+    if (isPasswordValid) return existentUser;
+    // return void if password is not valid
+    return;
+  }
 
-  const newUser = await UserModel.create({ username, password });
+  // Hash password before save it
+  const hash = await bcrypt.hash(password, 12);
+  const newUser = await UserModel.create({ username, password: hash });
   return newUser;
 };
 
+// HANDLER
 const handler: HandlerWithSession = async (req, res) => {
   const { username, password } = req.body;
 
-  await dbConnect();
+  // Verify  user
   const user = await verifyOrCreateUser({ username, password });
+  if (!user) return res.status(401).send("Incorrect username or password");
 
+  // Save user on session if found one
   req.session.set("user", user);
   await req.session.save();
 

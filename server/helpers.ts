@@ -16,8 +16,7 @@ export function withSession<T = any>(
       const user = req.session.get("user");
       if (!user) {
         req.session.destroy();
-        res.status(401).send("Please log in!");
-        return;
+        return res.status(401).send("Please log in!");
       }
     }
     return handler(req, res);
@@ -46,6 +45,7 @@ export async function dbConnect() {
   if (!mongoose.connections[0].readyState) {
     await mongoose.connect(uri, options);
   }
+
   return;
 }
 
