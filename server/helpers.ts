@@ -30,20 +30,13 @@ export function withSession<T = any>(
 }
 
 export async function dbConnect() {
-  const MDB_USER = process.env.MDB_USER;
-  const MDB_URI = process.env.MDB_URI;
-  const MDB_PW = process.env.MDB_PW;
-
-  const uri = `mongodb+srv://${MDB_USER}:${MDB_PW}@${MDB_URI}`;
-  const options = {
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useNewUrlParser: true,
-    w: "majority",
-  };
-
   if (!mongoose.connections[0].readyState) {
-    await mongoose.connect(uri, options);
+    await mongoose.connect(`${process.env.MONGO_URL}/${process.env.MONGO_DB}`, {
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useNewUrlParser: true,
+      w: "majority",
+    });
   }
 
   return;
