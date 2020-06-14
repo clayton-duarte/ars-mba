@@ -1,9 +1,9 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/router";
-import styled from "styled-components";
 import { NextPage } from "next";
 
 import { useUser } from "../providers/user";
+import { styled } from "../providers/theme";
 import Button from "../components/Button";
 import { User } from "../types";
 

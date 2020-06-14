@@ -1,3 +1,3 @@
-import styled from "styled-components";
+import { styled } from "../providers/theme";
 
 export default styled.button``;

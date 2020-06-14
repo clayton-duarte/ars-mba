@@ -1,5 +1,6 @@
 import { NextPage } from "next";
-import styled from "styled-components";
+
+import { styled } from "../providers/theme";
 
 const Container = styled.section`
   justify-content: center;
@@ -10,14 +11,14 @@ const Container = styled.section`
 `;
 
 const Title = styled.h1`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.palette.PRIMARY};
   font-size: 2rem;
   line-height: 1;
   margin: 1rem 0;
 `;
 
 const Paragraph = styled.p`
-  color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.palette.SECONDARY};
   font-size: 1rem;
   line-height: 1;
   margin: 1rem 0;
