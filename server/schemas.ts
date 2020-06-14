@@ -1,8 +1,21 @@
 import mongoose from "mongoose";
 
-import { User } from "../types";
+import { User, Character } from "../types";
 
 export const UserSchema = new mongoose.Schema<User>({
   username: String,
   password: String,
+});
+
+export const CharacterSchema = new mongoose.Schema<Character>({
+  endurance: Number,
+  strength: Number,
+  accuracy: Number,
+  mobility: Number,
+  name: String,
+  // Allows to populate while querying
+  user: {
+    type: "ObjectId",
+    ref: "User",
+  },
 });

@@ -9,7 +9,8 @@ import Button from "../components/Button";
 import { User } from "../types";
 
 const UserPage: NextPage<{ user: User }> = () => {
-  const { user, getUser, doLogout } = useUser(useRouter());
+  const router = useRouter();
+  const { user, getUser, doLogout } = useUser(router);
 
   useEffect(() => {
     getUser();
@@ -20,6 +21,12 @@ const UserPage: NextPage<{ user: User }> = () => {
   return (
     <PageTemplate>
       <p>Welcome {user.username}</p>
+      <Button onClick={() => router.push("/char/add")}>create character</Button>
+      <ul>
+        <li>
+          <a>char</a>
+        </li>
+      </ul>
       <Button onClick={doLogout}>logout</Button>
     </PageTemplate>
   );

@@ -1,7 +1,7 @@
 import mongoose, { Document } from "mongoose";
 
-import { UserSchema } from "./schemas";
-import { User } from "../types";
+import { UserSchema, CharacterSchema } from "./schemas";
+import { User, Character } from "../types";
 
 function initializeModel<Type>(model, schema) {
   type Doc = Type & Document;
@@ -10,3 +10,7 @@ function initializeModel<Type>(model, schema) {
 }
 
 export const UserModel = initializeModel<User>("User", UserSchema);
+export const CharacterModel = initializeModel<Character>(
+  "Character",
+  CharacterSchema
+);

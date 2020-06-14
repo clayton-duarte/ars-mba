@@ -15,3 +15,13 @@ export type HandlerWithSession<T = any> = (
   req: NextApiRequestWithSession,
   res: NextApiResponse<T>
 ) => void | Promise<void>;
+
+export interface Character {
+  endurance: number;
+  strength: number;
+  accuracy: number;
+  mobility: number;
+  user: string;
+  name: string;
+  _id?: string;
+}

@@ -36,10 +36,8 @@ const verifyOrCreateUser = async ({
 
 // HANDLER
 const handler: HandlerWithSession = async (req, res) => {
-  const { username, password } = req.body;
-
   // Verify  user
-  const user = await verifyOrCreateUser({ username, password });
+  const user = await verifyOrCreateUser(req.body);
   if (!user) return res.status(401).send("Incorrect username or password");
 
   // Save user on session if found one
