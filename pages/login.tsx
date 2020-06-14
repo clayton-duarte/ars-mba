@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { NextPage } from "next";
 
+import { useUser } from "../providers/user";
 import Button from "../components/Button";
-import { useAxios } from "../helpers/axios";
 import { User } from "../types";
 
 const Form = styled.form`
@@ -22,9 +22,8 @@ const Label = styled.label``;
 const Input = styled.input``;
 
 const LoginPage: NextPage = () => {
-  const router = useRouter();
   const [formData, setFormData] = useState<User>();
-  const { apiClient, errorHandler } = useAxios(router);
+  const { doLogin } = useUser(useRouter());
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -32,15 +31,10 @@ const LoginPage: NextPage = () => {
     return setFormData(newFormData);
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // TODO > form validation
-    try {
-      const response = await apiClient.post("/login", formData);
-      if (response.data.isSuccess) router.push("/user");
-    } catch (err) {
-      errorHandler(err);
-    }
+    doLogin(formData);
   };
 
   return (

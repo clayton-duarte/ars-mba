@@ -1,5 +1,7 @@
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 
+import Providers from "../providers";
+
 const theme = {
   colors: {
     primary: "tomato",
@@ -18,7 +20,9 @@ body, html {
 const MyApp = ({ Component, pageProps }) => {
   return (
     <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
+      <Providers>
+        <Component {...pageProps} />
+      </Providers>
       <GlobalStyle />
     </ThemeProvider>
   );

@@ -1,33 +1,13 @@
-import { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
+import { useUser } from "../providers/user";
 import Button from "../components/Button";
-import { useAxios } from "../helpers/axios";
 import { User } from "../types";
 
 const UserPage: NextPage<{ user: User }> = () => {
-  const router = useRouter();
-  const [user, setUser] = useState<User>();
-  const { apiClient, errorHandler } = useAxios(router);
-
-  const getUser = async () => {
-    try {
-      const { data } = await apiClient.get<User>("/user");
-      setUser(data);
-    } catch (err) {
-      errorHandler(err);
-    }
-  };
-
-  const doLogout = async () => {
-    try {
-      const { data } = await apiClient.get("/logout");
-      if (data.isSuccess) router.push("/login");
-    } catch (err) {
-      errorHandler(err);
-    }
-  };
+  const { user, getUser, doLogout } = useUser(useRouter());
 
   useEffect(() => {
     getUser();
