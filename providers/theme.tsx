@@ -32,7 +32,7 @@ const theme = {
   font: Font,
 };
 
-type Theme = typeof theme;
+export type Theme = typeof theme;
 
 const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
   body, html {

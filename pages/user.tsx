@@ -37,7 +37,7 @@ const UserPage: NextPage<{ user: User }> = () => {
   return (
     <PageTemplate>
       <p>Welcome {user.username}</p>
-      <Button onClick={() => router.push("/char/add")}>create character</Button>
+      <Button onClick={() => router.push("/char/new")}>create character</Button>
       <ul>
         {charList.map(({ _id, name }) => (
           <li key={_id}>

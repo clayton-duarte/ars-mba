@@ -1,14 +1,21 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, MouseEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
 import { useAxios } from "../../helpers/axios";
 import Fieldset from "../../components/Fieldset";
+import { styled } from "../../providers/theme";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
 import Form from "../../components/Form";
 import { Character } from "../../types";
+
+const Wrapper = styled.div`
+  > button:first-child {
+    margin-right: 1rem;
+  }
+`;
 
 const AddCharPage: NextPage = () => {
   const [formData, setFormData] = useState<Partial<Character>>();
@@ -19,6 +26,11 @@ const AddCharPage: NextPage = () => {
     const { name, value } = e.target;
     const newFormData = { ...formData, [name]: value };
     return setFormData(newFormData);
+  };
+
+  const handleBack = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    router.back();
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -92,9 +104,14 @@ const AddCharPage: NextPage = () => {
           type="number"
         />
       </Fieldset>
-      <Button type="submit" disabled={!isFormFilled}>
-        submit
-      </Button>
+      <Wrapper>
+        <Button secondary onClick={handleBack}>
+          back
+        </Button>
+        <Button type="submit" disabled={!isFormFilled}>
+          submit
+        </Button>
+      </Wrapper>
     </Form>
   );
 };

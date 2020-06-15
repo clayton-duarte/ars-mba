@@ -1,9 +1,10 @@
-import { styled } from "../providers/theme";
+import { Theme, styled } from "../providers/theme";
 
 export default styled.button`
+  background: ${({ theme, secondary }: { theme: Theme; secondary?: boolean }) =>
+    secondary ? theme.palette.SECONDARY : theme.palette.PRIMARY};
   border: ${(props) => props.theme.shape.BORDER};
   border-color: ${(props) => props.theme.palette.PRIMARY};
-  background: ${(props) => props.theme.palette.PRIMARY};
   border-radius: ${(props) => props.theme.shape.RADIUS};
   font-family: ${(props) => props.theme.font.FAMILY};
   padding: ${(props) => props.theme.shape.PADDING};
