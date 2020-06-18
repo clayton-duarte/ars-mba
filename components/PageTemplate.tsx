@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 
 import { styled } from "../providers/theme";
+import PageTitle from "./PageTitle";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -15,14 +16,17 @@ const StyledContent = styled.article`
   flex-grow: 1;
 `;
 
-const Template: FunctionComponent<{ footerContent: JSX.Element }> = ({
-  footerContent,
-  children,
-}) => {
+const Template: FunctionComponent<{
+  footerContent: JSX.Element;
+  title?: string;
+}> = ({ footerContent, children, title }) => {
   return (
     <StyledMain>
       <Header />
-      <StyledContent>{children}</StyledContent>
+      <StyledContent>
+        {title && <PageTitle>{title}</PageTitle>}
+        {children}
+      </StyledContent>
       <Footer>{footerContent}</Footer>
     </StyledMain>
   );
