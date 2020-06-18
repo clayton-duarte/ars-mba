@@ -3,11 +3,14 @@ import React, {
   FunctionComponent,
   useContext,
   useReducer,
+  useEffect,
+  Dispatch,
 } from "react";
+import { useRouter } from "next/router";
 
 import { useAxios } from "../helpers/axios";
-import { User } from "../types";
 import { NextRouter } from "next/router";
+import { User } from "../types";
 
 const UserContext = createContext(null);
 
@@ -18,7 +21,12 @@ enum ActionTypes {
   CLEAR_USER = "CLEAR_USER",
 }
 
-function reducer(state, action) {
+interface Action {
+  type: ActionTypes;
+  payload?: User;
+}
+
+function reducer(state: User, action: Action) {
   switch (action.type) {
     case ActionTypes.GET_USER:
       return action.payload;
@@ -30,20 +38,8 @@ function reducer(state, action) {
 }
 
 export function useUser(router: NextRouter) {
-  const [user, dispatch] = useContext(UserContext);
+  const [user, dispatch] = useContext<[User, Dispatch<Action>]>(UserContext);
   const { apiClient, errorHandler } = useAxios(router);
-
-  async function getUser() {
-    try {
-      const { data } = await apiClient.get<User>("/user");
-      dispatch({
-        type: ActionTypes.GET_USER,
-        payload: data,
-      });
-    } catch (err) {
-      errorHandler(err);
-    }
-  }
 
   async function doLogin(formData: User) {
     try {
@@ -72,11 +68,28 @@ export function useUser(router: NextRouter) {
     }
   }
 
-  return { user, getUser, doLogin, doLogout };
+  return { user, doLogin, doLogout };
 }
 
 const Provider: FunctionComponent = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { apiClient, errorHandler } = useAxios(useRouter());
+
+  async function getUser() {
+    try {
+      const { data } = await apiClient.get<User>("/user");
+      dispatch({
+        type: ActionTypes.GET_USER,
+        payload: data,
+      });
+    } catch (err) {
+      errorHandler(err);
+    }
+  }
+
+  useEffect(() => {
+    if (!state) getUser();
+  }, []);
 
   return (
     <UserContext.Provider value={[state, dispatch]}>
