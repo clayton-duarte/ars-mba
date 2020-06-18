@@ -10,7 +10,6 @@ enum Palette {
   SECONDARY = "#3bb4c1",
   TEXT = "#222831",
   BG = "#f6f5f5",
-  BG_ALT = "#e3e3e3",
 }
 
 enum Shape {
