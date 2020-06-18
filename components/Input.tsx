@@ -8,6 +8,7 @@ export default styled.input`
   padding: ${(props) => props.theme.shape.PADDING};
   font-size: ${(props) => props.theme.font.SIZE};
   color: ${(props) => props.theme.palette.TEXT};
+  width: 100%;
   margin: 0;
   &:focus {
     border: 0.125rem solid ${(props) => props.theme.palette.SECONDARY};

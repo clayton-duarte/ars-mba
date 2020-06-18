@@ -1,21 +1,15 @@
-import React, { ChangeEvent, MouseEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { RiUserUnfollowLine, RiUserFollowLine } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
-import { useAxios } from "../../helpers/axios";
+import PageTemplate from "../../components/PageTemplate";
 import Fieldset from "../../components/Fieldset";
+import { useAxios } from "../../helpers/axios";
 import { styled } from "../../providers/theme";
-import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
-import Form from "../../components/Form";
 import { Character } from "../../types";
-
-const Wrapper = styled.div`
-  > button:first-child {
-    margin-right: 1rem;
-  }
-`;
 
 const AddCharPage: NextPage = () => {
   const [formData, setFormData] = useState<Partial<Character>>();
@@ -28,33 +22,45 @@ const AddCharPage: NextPage = () => {
     return setFormData(newFormData);
   };
 
-  const handleBack = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    router.back();
-  };
+  const renderFooterContent = () => {
+    const handleSubmit = async () => {
+      if (
+        formData &&
+        formData.endurance &&
+        formData.accuracy &&
+        formData.mobility &&
+        formData.strength &&
+        formData.name
+      ) {
+        try {
+          const { data } = await apiClient.post<Character>(
+            "/createChar",
+            formData
+          );
+          if (data) router.push("/char/[_id]", `/char/${data._id}`);
+        } catch (err) {
+          errorHandler(err);
+        }
+      }
+    };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // TODO > form validation
-    console.log(formData);
-    try {
-      const { data } = await apiClient.post<Character>("/createChar", formData);
-      if (data) router.push("/char/[_id]", `/char/${data._id}`);
-    } catch (err) {
-      errorHandler(err);
-    }
-  };
+    const handleBack = () => {
+      router.back();
+    };
 
-  const isFormFilled =
-    formData &&
-    formData.endurance &&
-    formData.accuracy &&
-    formData.mobility &&
-    formData.strength &&
-    formData.name;
+    return (
+      <>
+        <RiUserUnfollowLine role="button" onClick={handleBack} />
+        <RiUserFollowLine role="button" onClick={handleSubmit} />
+      </>
+    );
+  };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <PageTemplate
+      title="character creation"
+      footerContent={renderFooterContent()}
+    >
       <Fieldset>
         <Label>name</Label>
         <br />
@@ -104,15 +110,7 @@ const AddCharPage: NextPage = () => {
           type="number"
         />
       </Fieldset>
-      <Wrapper>
-        <Button secondary onClick={handleBack}>
-          back
-        </Button>
-        <Button type="submit" disabled={!isFormFilled}>
-          submit
-        </Button>
-      </Wrapper>
-    </Form>
+    </PageTemplate>
   );
 };
 

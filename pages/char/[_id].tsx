@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { NextPage } from "next";
 import {
   RiArrowLeftLine,
-  RiDeleteBin7Line,
-  RiEditBoxLine,
+  RiUserUnfollowLine,
+  RiUserSettingsLine,
 } from "react-icons/ri";
 
 import PageTemplate from "../../components/PageTemplate";
@@ -64,14 +64,20 @@ const CharPage: NextPage = () => {
     return (
       <>
         <RiArrowLeftLine role="button" onClick={() => router.push("/user")} />
-        <RiDeleteBin7Line role="button" onClick={() => router.push("/user")} />
-        <RiEditBoxLine role="button" onClick={() => router.push("/user")} />
+        <RiUserUnfollowLine
+          role="button"
+          onClick={() => router.push("/user")}
+        />
+        <RiUserSettingsLine
+          role="button"
+          onClick={() => router.push("/user")}
+        />
       </>
     );
   };
 
   return (
-    <PageTemplate footerContent={renderFooterContent()}>
+    <PageTemplate title="character" footerContent={renderFooterContent()}>
       <Table>
         <thead>
           <tr>
