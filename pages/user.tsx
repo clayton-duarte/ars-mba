@@ -1,53 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { RiUserAddLine, RiRefreshLine } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
 import PageTemplate from "../components/PageTemplate";
 import PageLoader from "../components/PageLoader";
-import { useAxios } from "../helpers/axios";
+import CharList from "../components/CharList";
 import { useUser } from "../providers/user";
-import { User, Character } from "../types";
-import Button from "../components/Button";
-import Link from "../components/Link";
+import { User } from "../types";
 
 const UserPage: NextPage<{ user: User }> = () => {
   const router = useRouter();
-  const [charList, setCharList] = useState<Character[]>([]);
-  const { apiClient, errorHandler } = useAxios(router);
-  const { user, getUser, doLogout } = useUser(router);
-
-  const charsByUser = async () => {
-    try {
-      const { data } = await apiClient.get("/charsByUser");
-      setCharList(data);
-    } catch (err) {
-      errorHandler(err);
-    }
-  };
-
-  useEffect(() => {
-    charsByUser();
-    getUser();
-  }, []);
-
-  useEffect(() => {}, []);
+  const { user } = useUser(router);
 
   if (!user) return <PageLoader />;
 
+  const renderFooterContent = () => {
+    return (
+      <>
+        <RiUserAddLine role="button" onClick={() => router.push("/char/new")} />
+        <RiRefreshLine role="button" onClick={() => router.reload()} />
+      </>
+    );
+  };
+
   return (
-    <PageTemplate>
-      <p>Welcome {user.username}</p>
-      <Button onClick={() => router.push("/char/new")}>create character</Button>
-      <ul>
-        {charList.map(({ _id, name }) => (
-          <li key={_id}>
-            <Link href="/char/[_id]" as={`/char/${_id}`}>
-              {name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <Button onClick={doLogout}>logout</Button>
+    <PageTemplate title="character list" footerContent={renderFooterContent()}>
+      <CharList />
     </PageTemplate>
   );
 };
