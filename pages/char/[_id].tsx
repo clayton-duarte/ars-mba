@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
+import {
+  RiArrowLeftLine,
+  RiDeleteBin7Line,
+  RiEditBoxLine,
+} from "react-icons/ri";
 
 import PageTemplate from "../../components/PageTemplate";
 import PageLoader from "../../components/PageLoader";
 import { useAxios } from "../../helpers/axios";
 import { styled } from "../../providers/theme";
-import Button from "../../components/Button";
 import { Character } from "../../types";
 
 const Table = styled.table`
@@ -14,6 +18,7 @@ const Table = styled.table`
   margin: ${(props) => props.theme.shape.MARGIN};
   border-collapse: collapse;
   overflow: hidden;
+  width: 100%;
   thead {
     td,
     th {
@@ -55,8 +60,18 @@ const CharPage: NextPage = () => {
 
   if (!char) return <PageLoader />;
 
+  const renderFooterContent = () => {
+    return (
+      <>
+        <RiArrowLeftLine role="button" onClick={() => router.push("/user")} />
+        <RiDeleteBin7Line role="button" onClick={() => router.push("/user")} />
+        <RiEditBoxLine role="button" onClick={() => router.push("/user")} />
+      </>
+    );
+  };
+
   return (
-    <PageTemplate>
+    <PageTemplate footerContent={renderFooterContent()}>
       <Table>
         <thead>
           <tr>
@@ -83,7 +98,6 @@ const CharPage: NextPage = () => {
           </tr>
         </tbody>
       </Table>
-      <Button onClick={() => router.push("/user")}>back</Button>
     </PageTemplate>
   );
 };
