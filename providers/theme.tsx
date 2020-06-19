@@ -44,6 +44,9 @@ const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
   * {
     box-sizing: border-box;
   }
+  svg[role="button"] {
+    cursor: pointer;
+  }
   `;
 
 const Provider: FunctionComponent = ({ children }) => {

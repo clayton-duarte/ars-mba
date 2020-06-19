@@ -24,7 +24,7 @@ const DeleteCharPage: NextPage = () => {
           params: { charId },
         }
       );
-      if (data.isSuccess) router.push("/user");
+      if (data.isSuccess) router.push("/char");
     } catch (err) {
       errorHandler(err);
     }

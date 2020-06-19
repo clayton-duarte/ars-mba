@@ -61,7 +61,7 @@ const CharPage: NextPage = () => {
   if (!char) return <PageLoader />;
 
   const handleClickBack = () => {
-    router.push("/user");
+    router.push("/char");
   };
 
   const handleClickDelete = () => {

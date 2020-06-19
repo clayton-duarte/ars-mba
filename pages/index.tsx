@@ -1,35 +1,60 @@
+import React from "react";
+import { RiFolderUserLine } from "react-icons/ri";
+import { useRouter } from "next/router";
 import { NextPage } from "next";
 
+import PageTemplate from "../components/PageTemplate";
+// import PageLoader from "../components/PageLoader";
 import { styled } from "../providers/theme";
 
-const Container = styled.section`
+const Row = styled.section`
+  justify-content: center;
+  margin: -0.5rem;
+  flex-wrap: wrap;
+  display: flex;
+`;
+
+const Card = styled.button`
+  border: ${({ theme }) => theme.shape.BORDER};
+  border-color: ${({ theme }) => theme.palette.PRIMARY};
+  border-radius: ${({ theme }) => theme.shape.RADIUS};
+  background: ${({ theme }) => theme.palette.BG};
+  padding: ${({ theme }) => theme.shape.PADDING};
+  color: ${({ theme }) => theme.palette.PRIMARY};
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
+  margin: 0.5rem;
   display: flex;
-  height: 100vh;
-`;
-
-const Title = styled.h1`
-  color: ${({ theme }) => theme.palette.PRIMARY};
-  font-size: 2rem;
-  line-height: 1;
-  margin: 1rem 0;
-`;
-
-const Paragraph = styled.p`
-  color: ${({ theme }) => theme.palette.SECONDARY};
-  font-size: 1rem;
-  line-height: 1;
-  margin: 1rem 0;
+  height: 10rem;
+  width: 10rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  > svg {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const HomePage: NextPage = () => {
+  const router = useRouter();
+
   return (
-    <Container>
-      <Title>Under construction</Title>
-      <Paragraph>Future survival-alpha RPG system web app</Paragraph>
-    </Container>
+    <PageTemplate title="dashboard">
+      <Row>
+        <Card onClick={() => router.push("/char")}>
+          <RiFolderUserLine />
+          <span>characters</span>
+        </Card>
+
+        {[...Array(9)]
+          .map((a, index) => index)
+          .map((a) => (
+            <Card key={a}>{a}</Card>
+          ))}
+      </Row>
+    </PageTemplate>
   );
 };
 

@@ -17,7 +17,7 @@ const StyledContent = styled.article`
 `;
 
 const Template: FunctionComponent<{
-  footerContent: JSX.Element;
+  footerContent?: JSX.Element;
   title?: string;
 }> = ({ footerContent, children, title }) => {
   return (
@@ -27,7 +27,7 @@ const Template: FunctionComponent<{
         {title && <PageTitle>{title}</PageTitle>}
         {children}
       </StyledContent>
-      <Footer>{footerContent}</Footer>
+      {footerContent && <Footer>{footerContent}</Footer>}
     </StyledMain>
   );
 };

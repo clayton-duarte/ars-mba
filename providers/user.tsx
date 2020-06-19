@@ -45,7 +45,7 @@ export function useUser(router: NextRouter) {
     try {
       const { data } = await apiClient.post("/login", formData);
       if (data.isSuccess) {
-        router.push("/user");
+        router.push("/");
         dispatch({
           type: ActionTypes.GET_USER,
           payload: data.user,

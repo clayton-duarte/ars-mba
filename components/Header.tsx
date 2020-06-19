@@ -30,7 +30,7 @@ const Header: FunctionComponent = () => {
 
   return (
     <StyledHeader>
-      <RiHome2Line role="button" onClick={() => router.push("/user")} />
+      <RiHome2Line role="button" onClick={() => router.push("/")} />
       <StyledWelcome>Welcome {user.username}</StyledWelcome>
       <RiLogoutBoxRLine role="button" onClick={doLogout} />
     </StyledHeader>
