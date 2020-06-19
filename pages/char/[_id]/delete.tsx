@@ -18,17 +18,20 @@ const DeleteCharPage: NextPage = () => {
 
   const handleClickConfirm = async () => {
     try {
-      await apiClient.delete("/deleteChar", {
-        params: { charId },
-      });
-      router.push("/user");
+      const { data } = await apiClient.delete<{ isSuccess: boolean }>(
+        "/deleteChar",
+        {
+          params: { charId },
+        }
+      );
+      if (data.isSuccess) router.push("/user");
     } catch (err) {
       errorHandler(err);
     }
   };
 
   const handleClickCancel = () => {
-    router.push("/char/[_id]", `/char/${charId}`);
+    router.back();
   };
 
   const renderFooterContent = () => {
@@ -41,7 +44,10 @@ const DeleteCharPage: NextPage = () => {
   };
 
   return (
-    <PageTemplate footerContent={renderFooterContent()}>
+    <PageTemplate
+      footerContent={renderFooterContent()}
+      title="Delete character"
+    >
       <StyledText>Are you sure about it?</StyledText>
       <StyledText>*This action is irreversible</StyledText>
     </PageTemplate>
