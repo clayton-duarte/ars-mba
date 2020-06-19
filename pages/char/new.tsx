@@ -6,7 +6,6 @@ import { NextPage } from "next";
 import PageTemplate from "../../components/PageTemplate";
 import Fieldset from "../../components/Fieldset";
 import { useAxios } from "../../helpers/axios";
-import { styled } from "../../providers/theme";
 import Input from "../../components/Input";
 import Label from "../../components/Label";
 import { Character } from "../../types";

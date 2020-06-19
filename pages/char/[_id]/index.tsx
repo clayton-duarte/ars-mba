@@ -7,11 +7,11 @@ import {
   RiUserSettingsLine,
 } from "react-icons/ri";
 
-import PageTemplate from "../../components/PageTemplate";
-import PageLoader from "../../components/PageLoader";
-import { useAxios } from "../../helpers/axios";
-import { styled } from "../../providers/theme";
-import { Character } from "../../types";
+import PageTemplate from "../../../components/PageTemplate";
+import PageLoader from "../../../components/PageLoader";
+import { useAxios } from "../../../helpers/axios";
+import { styled } from "../../../providers/theme";
+import { Character } from "../../../types";
 
 const Table = styled.table`
   border-radius: ${(props) => props.theme.shape.RADIUS};
@@ -60,18 +60,24 @@ const CharPage: NextPage = () => {
 
   if (!char) return <PageLoader />;
 
+  const handleClickBack = () => {
+    router.push("/user");
+  };
+
+  const handleClickDelete = () => {
+    router.push("/char/[_id]/delete", `/char/${charId}/delete`);
+  };
+
+  const handleClickEdit = () => {
+    router.push("/char/[_id]/edit", `/char/${charId}/edit`);
+  };
+
   const renderFooterContent = () => {
     return (
       <>
-        <RiArrowLeftLine role="button" onClick={() => router.push("/user")} />
-        <RiUserUnfollowLine
-          role="button"
-          onClick={() => router.push("/user")}
-        />
-        <RiUserSettingsLine
-          role="button"
-          onClick={() => router.push("/user")}
-        />
+        <RiArrowLeftLine role="button" onClick={handleClickBack} />
+        <RiUserUnfollowLine role="button" onClick={handleClickDelete} />
+        <RiUserSettingsLine role="button" onClick={handleClickEdit} />
       </>
     );
   };
