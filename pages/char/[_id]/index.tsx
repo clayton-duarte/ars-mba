@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 import {
@@ -7,11 +7,10 @@ import {
   RiUserSettingsLine,
 } from "react-icons/ri";
 
+import SkeletonLoader from "../../../components/SkeletonLoader";
 import PageTemplate from "../../../components/PageTemplate";
-import PageLoader from "../../../components/PageLoader";
-import { useAxios } from "../../../helpers/axios";
+import { useChar } from "../../../providers/char";
 import { styled } from "../../../providers/theme";
-import { Character } from "../../../types";
 
 const Table = styled.table`
   border-radius: ${(props) => props.theme.shape.RADIUS};
@@ -41,24 +40,13 @@ const Table = styled.table`
 
 const CharPage: NextPage = () => {
   const router = useRouter();
-  const [char, setChar] = useState<Character>();
-  const { apiClient, errorHandler } = useAxios(router);
+  const { currentChar, getCurrentChar, clearCurrentChar } = useChar(router);
   const charId = router.query._id;
 
-  const getChar = async (charId: string) => {
-    try {
-      const { data } = await apiClient.get("/char", { params: { charId } });
-      setChar(data);
-    } catch (err) {
-      errorHandler(err);
-    }
-  };
-
   useEffect(() => {
-    charId && getChar(String(charId));
+    charId && getCurrentChar(String(charId));
+    return clearCurrentChar;
   }, [charId]);
-
-  if (!char) return <PageLoader />;
 
   const handleClickBack = () => {
     router.push("/char");
@@ -84,32 +72,36 @@ const CharPage: NextPage = () => {
 
   return (
     <PageTemplate title="character" footerContent={renderFooterContent()}>
-      <Table>
-        <thead>
-          <tr>
-            <th>name:</th>
-            <th>{char.name}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>endurance:</td>
-            <td>{char.endurance}</td>
-          </tr>
-          <tr>
-            <td>strength:</td>
-            <td>{char.strength}</td>
-          </tr>
-          <tr>
-            <td>accuracy:</td>
-            <td>{char.accuracy}</td>
-          </tr>
-          <tr>
-            <td>mobility:</td>
-            <td>{char.mobility}</td>
-          </tr>
-        </tbody>
-      </Table>
+      {currentChar ? (
+        <Table>
+          <thead>
+            <tr>
+              <th>name:</th>
+              <th>{currentChar.name}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>endurance:</td>
+              <td>{currentChar.endurance}</td>
+            </tr>
+            <tr>
+              <td>strength:</td>
+              <td>{currentChar.strength}</td>
+            </tr>
+            <tr>
+              <td>accuracy:</td>
+              <td>{currentChar.accuracy}</td>
+            </tr>
+            <tr>
+              <td>mobility:</td>
+              <td>{currentChar.mobility}</td>
+            </tr>
+          </tbody>
+        </Table>
+      ) : (
+        <SkeletonLoader />
+      )}
     </PageTemplate>
   );
 };

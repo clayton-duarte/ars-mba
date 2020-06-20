@@ -7,7 +7,7 @@ import Footer from "./Footer";
 
 const StyledMain = styled.main`
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
 `;
 

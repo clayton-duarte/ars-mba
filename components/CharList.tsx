@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { useAxios } from "../helpers/axios";
-import { useUser } from "../providers/user";
+import SkeletonLoader from "./SkeletonLoader";
+import { useChar } from "../providers/char";
 import { styled } from "../providers/theme";
 import { Character } from "../types";
 import Link from "./Link";
@@ -28,10 +28,7 @@ const Stats = styled.span`
 `;
 
 const CharList = () => {
-  const router = useRouter();
-  const { user } = useUser(router);
-  const { apiClient, errorHandler } = useAxios(router);
-  const [charList, setCharList] = useState<Character[]>([]);
+  const { charList, getCharList } = useChar(useRouter());
 
   const reduceStats = ({
     accuracy,
@@ -42,20 +39,11 @@ const CharList = () => {
     return accuracy + endurance + mobility + strength;
   };
 
-  const charsByUser = async () => {
-    try {
-      const { data } = await apiClient.get("/charsByUser");
-      setCharList(data);
-    } catch (err) {
-      errorHandler(err);
-    }
-  };
-
   useEffect(() => {
-    charsByUser();
+    getCharList();
   }, []);
 
-  if (!user) return null;
+  if (!charList) return <SkeletonLoader />;
 
   return (
     <StyledList>

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { NextPage } from "next";
 
 import PageTemplate from "../../../components/PageTemplate";
-import { useAxios } from "../../../helpers/axios";
+import { useChar } from "../../../providers/char";
 import { styled } from "../../../providers/theme";
 
 const StyledText = styled.p`
@@ -13,21 +13,11 @@ const StyledText = styled.p`
 
 const DeleteCharPage: NextPage = () => {
   const router = useRouter();
-  const { apiClient, errorHandler } = useAxios(router);
+  const { deleteChar } = useChar(router);
   const charId = router.query._id;
 
   const handleClickConfirm = async () => {
-    try {
-      const { data } = await apiClient.delete<{ isSuccess: boolean }>(
-        "/deleteChar",
-        {
-          params: { charId },
-        }
-      );
-      if (data.isSuccess) router.push("/char");
-    } catch (err) {
-      errorHandler(err);
-    }
+    deleteChar(String(charId));
   };
 
   const handleClickCancel = () => {

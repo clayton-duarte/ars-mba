@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { NextPage } from "next";
 
 import PageTemplate from "../components/PageTemplate";
-// import PageLoader from "../components/PageLoader";
 import { styled } from "../providers/theme";
 
 const Row = styled.section`
@@ -21,16 +20,20 @@ const Card = styled.button`
   background: ${({ theme }) => theme.palette.BG};
   padding: ${({ theme }) => theme.shape.PADDING};
   color: ${({ theme }) => theme.palette.PRIMARY};
+  text-transform: uppercase;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  font-weight: 700;
   cursor: pointer;
   margin: 0.5rem;
   display: flex;
   height: 10rem;
   width: 10rem;
-  text-transform: uppercase;
-  font-weight: 700;
+  &:disabled {
+    filter: grayscale(100%);
+    pointer-events: none;
+  }
   > svg {
     font-size: 5rem;
     margin-bottom: 1rem;
@@ -48,10 +51,12 @@ const HomePage: NextPage = () => {
           <span>characters</span>
         </Card>
 
-        {[...Array(9)]
+        {[...Array(7)]
           .map((a, index) => index)
           .map((a) => (
-            <Card key={a}>{a}</Card>
+            <Card disabled key={a}>
+              soon
+            </Card>
           ))}
       </Row>
     </PageTemplate>

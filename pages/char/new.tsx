@@ -5,40 +5,23 @@ import { NextPage } from "next";
 
 import PageTemplate from "../../components/PageTemplate";
 import CharForm from "../../components/CharForm";
-import { useAxios } from "../../helpers/axios";
+import { useChar } from "../../providers/char";
 import { Character } from "../../types";
 
 const AddCharPage: NextPage = () => {
   const [formData, setFormData] = useState<Partial<Character>>();
   const router = useRouter();
-  const { apiClient, errorHandler } = useAxios(router);
+  const { createChar } = useChar(router);
+
+  const handleSubmit = async () => {
+    createChar(formData);
+  };
+
+  const handleBack = () => {
+    router.back();
+  };
 
   const renderFooterContent = () => {
-    const handleSubmit = async () => {
-      if (
-        formData &&
-        formData.endurance &&
-        formData.accuracy &&
-        formData.mobility &&
-        formData.strength &&
-        formData.name
-      ) {
-        try {
-          const { data } = await apiClient.post<Character>(
-            "/createChar",
-            formData
-          );
-          if (data) router.push("/char/[_id]", `/char/${data._id}`);
-        } catch (err) {
-          errorHandler(err);
-        }
-      }
-    };
-
-    const handleBack = () => {
-      router.back();
-    };
-
     return (
       <>
         <RiUserUnfollowLine role="button" onClick={handleBack} />
@@ -49,7 +32,7 @@ const AddCharPage: NextPage = () => {
 
   return (
     <PageTemplate
-      title="character creation"
+      title="create character"
       footerContent={renderFooterContent()}
     >
       <CharForm formData={formData} setFormData={setFormData} />

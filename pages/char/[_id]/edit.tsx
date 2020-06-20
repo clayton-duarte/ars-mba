@@ -3,56 +3,38 @@ import { RiCheckLine, RiCloseLine } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
+import SkeletonLoader from "../../../components/SkeletonLoader";
 import PageTemplate from "../../../components/PageTemplate";
 import CharForm from "../../../components/CharForm";
-import { useAxios } from "../../../helpers/axios";
+import { useChar } from "../../../providers/char";
 import { Character } from "../../../types";
 
 const EditCharPage: NextPage = () => {
-  const [formData, setFormData] = useState<Partial<Character>>();
   const router = useRouter();
-  const { apiClient, errorHandler } = useAxios(router);
+  const [formData, setFormData] = useState<Partial<Character>>();
+  const { currentChar, clearCurrentChar, updateChar, getCurrentChar } = useChar(
+    router
+  );
   const charId = router.query._id;
 
-  const getChar = async (charId: string) => {
-    try {
-      const { data } = await apiClient.get("/char", { params: { charId } });
-      setFormData(data);
-    } catch (err) {
-      errorHandler(err);
-    }
-  };
-
   useEffect(() => {
-    charId && getChar(String(charId));
+    charId && getCurrentChar(String(charId));
   }, [charId]);
 
+  useEffect(() => {
+    currentChar && setFormData(currentChar);
+    return clearCurrentChar;
+  }, [currentChar]);
+
+  const handleClickConfirm = async () => {
+    updateChar(formData);
+  };
+
+  const handleClickCancel = () => {
+    router.back();
+  };
+
   const renderFooterContent = () => {
-    const handleClickConfirm = async () => {
-      if (
-        formData &&
-        formData.endurance &&
-        formData.accuracy &&
-        formData.mobility &&
-        formData.strength &&
-        formData.name
-      ) {
-        try {
-          const { data } = await apiClient.put<{ isSuccess: boolean }>(
-            "/updateChar",
-            formData
-          );
-          if (data.isSuccess) router.back();
-        } catch (err) {
-          errorHandler(err);
-        }
-      }
-    };
-
-    const handleClickCancel = () => {
-      router.back();
-    };
-
     return (
       <>
         <RiCloseLine role="button" onClick={handleClickCancel} />
@@ -63,7 +45,11 @@ const EditCharPage: NextPage = () => {
 
   return (
     <PageTemplate title="Edit character" footerContent={renderFooterContent()}>
-      <CharForm formData={formData} setFormData={setFormData} />
+      {formData ? (
+        <CharForm formData={formData} setFormData={setFormData} />
+      ) : (
+        SkeletonLoader
+      )}
     </PageTemplate>
   );
 };
