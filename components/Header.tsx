@@ -19,6 +19,7 @@ const StyledHeader = styled.header`
   font-size: 2rem;
   padding: 1rem;
   display: flex;
+  z-index: 999;
   top: 0;
 `;
 

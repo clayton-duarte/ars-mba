@@ -9,5 +9,6 @@ export default styled.footer`
   font-size: 2rem;
   display: flex;
   padding: 1rem;
+  z-index: 999;
   bottom: 0;
 `;
