@@ -6,8 +6,8 @@ import baseStyled, {
 } from "styled-components";
 
 enum Palette {
-  PRIMARY = "#048998",
-  SECONDARY = "#3bb4c1",
+  PRIMARY = "#1b435d",
+  SECONDARY = "#ff895d",
   TEXT = "#222831",
   BG = "#f6f5f5",
 }
@@ -34,11 +34,12 @@ const theme = {
 export type Theme = typeof theme;
 
 const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
-  body, html {
+  body, html,#__next {
     font-family: ${(props) => props.theme.font.FAMILY};
     background: ${(props) => props.theme.palette.BG};
     color: ${(props) => props.theme.palette.TEXT};
     font-size: 16px;
+    height: 100%;
     margin: 0;
   }
   * {
