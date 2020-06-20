@@ -7,36 +7,10 @@ import {
   RiUserSettingsLine,
 } from "react-icons/ri";
 
-import SkeletonLoader from "../../../components/SkeletonLoader";
 import PageTemplate from "../../../components/PageTemplate";
+import ActionsTable from "../../../components/ActionsTable";
+import StatsTable from "../../../components/StatsTable";
 import { useChar } from "../../../providers/char";
-import { styled } from "../../../providers/theme";
-
-const Table = styled.table`
-  border-radius: ${(props) => props.theme.shape.RADIUS};
-  margin: ${(props) => props.theme.shape.MARGIN};
-  border-collapse: collapse;
-  overflow: hidden;
-  width: 100%;
-  thead {
-    td,
-    th {
-      background: ${(props) => props.theme.palette.PRIMARY};
-      color: ${(props) => props.theme.palette.BG};
-    }
-  }
-  td,
-  th {
-    border: ${(props) => props.theme.shape.BORDER};
-    border-color: ${(props) => props.theme.palette.PRIMARY};
-    padding: ${(props) => props.theme.shape.PADDING};
-    text-transform: capitalize;
-    text-align: right;
-    &:first-child {
-      text-align: left;
-    }
-  }
-`;
 
 const CharPage: NextPage = () => {
   const router = useRouter();
@@ -71,37 +45,12 @@ const CharPage: NextPage = () => {
   };
 
   return (
-    <PageTemplate title="character" footerContent={renderFooterContent()}>
-      {currentChar ? (
-        <Table>
-          <thead>
-            <tr>
-              <th>name:</th>
-              <th>{currentChar.name}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>endurance:</td>
-              <td>{currentChar.endurance}</td>
-            </tr>
-            <tr>
-              <td>strength:</td>
-              <td>{currentChar.strength}</td>
-            </tr>
-            <tr>
-              <td>accuracy:</td>
-              <td>{currentChar.accuracy}</td>
-            </tr>
-            <tr>
-              <td>mobility:</td>
-              <td>{currentChar.mobility}</td>
-            </tr>
-          </tbody>
-        </Table>
-      ) : (
-        <SkeletonLoader />
-      )}
+    <PageTemplate
+      footerContent={renderFooterContent()}
+      title={currentChar?.name}
+    >
+      <StatsTable char={currentChar} />
+      <ActionsTable char={currentChar} />
     </PageTemplate>
   );
 };

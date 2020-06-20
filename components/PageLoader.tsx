@@ -39,7 +39,7 @@ const PageLoader: FunctionComponent = () => {
       setInterval(() => {
         const newDiceIndex = diceIndex + 1;
         setDiceIndex(newDiceIndex < diceList.length ? newDiceIndex : 0);
-      }, 300)
+      }, 250)
     );
   };
 
