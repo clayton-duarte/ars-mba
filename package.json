@@ -12,6 +12,7 @@
     "mongoose": "^5.9.18",
     "next": "latest",
     "next-iron-session": "^4.1.7",
+    "polished": "^3.6.5",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-icons": "^3.10.0",
