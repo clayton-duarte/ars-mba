@@ -4,11 +4,20 @@ import { NextPage } from "next";
 
 import Fieldset from "../components/Fieldset";
 import { useUser } from "../providers/user";
+import { styled } from "../providers/theme";
 import Button from "../components/Button";
 import Label from "../components/Label";
 import Input from "../components/Input";
 import Form from "../components/Form";
 import { User } from "../types";
+
+const Grid = styled.section`
+  align-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+  display: grid;
+  height: 100%;
+`;
 
 const LoginPage: NextPage = () => {
   const [formData, setFormData] = useState<User>();
@@ -27,34 +36,34 @@ const LoginPage: NextPage = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Fieldset>
-        <Label>username</Label>
-        <br />
-        <Input
-          onChange={handleChange}
-          placeholder="luke"
-          name="username"
-          type="text"
-        />
-      </Fieldset>
-      <Fieldset>
-        <Label>password</Label>
-        <br />
-        <Input
-          onChange={handleChange}
-          placeholder="lightsaber"
-          name="password"
-          type="password"
-        />
-      </Fieldset>
-      <Button
-        disabled={!(formData && formData.username && formData.password)}
-        type="submit"
-      >
-        submit
-      </Button>
-    </Form>
+    <Grid>
+      <Form onSubmit={handleSubmit}>
+        <Fieldset>
+          <Label>username</Label>
+          <Input
+            onChange={handleChange}
+            placeholder="luke"
+            name="username"
+            type="text"
+          />
+        </Fieldset>
+        <Fieldset>
+          <Label>password</Label>
+          <Input
+            onChange={handleChange}
+            placeholder="lightsaber"
+            name="password"
+            type="password"
+          />
+        </Fieldset>
+        <Button
+          disabled={!(formData && formData.username && formData.password)}
+          type="submit"
+        >
+          submit
+        </Button>
+      </Form>
+    </Grid>
   );
 };
 

@@ -25,6 +25,7 @@ const AddCharPage: NextPage = () => {
     return (
       <>
         <RiUserUnfollowLine role="button" onClick={handleBack} />
+        <span />
         <RiUserFollowLine role="button" onClick={handleSubmit} />
       </>
     );

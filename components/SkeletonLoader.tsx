@@ -13,13 +13,13 @@ const StyledBar = styled.div<{ delay: number; width: number }>`
   }
   border-radius: ${(props) => props.theme.shape.RADIUS};
   background: ${(props) => props.theme.palette.PRIMARY};
-  margin: ${(props) => props.theme.shape.MARGIN};
   color: ${(props) => props.theme.palette.BG};
   width: ${(props) => props.width}%;
   position: relative;
   overflow: hidden;
   opacity: 0.1;
   height: 1rem;
+  margin: 0;
   &:after {
     animation: slide 2s infinite ${(props) => props.delay}s;
     background-image: linear-gradient(

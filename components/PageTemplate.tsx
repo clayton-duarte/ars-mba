@@ -6,14 +6,17 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 const StyledMain = styled.main`
-  flex-direction: column;
+  grid-template: auto 1fr auto / 1fr;
   min-height: 100%;
-  display: flex;
+  display: grid;
+  gap: 1rem;
 `;
 
 const StyledContent = styled.article`
+  align-content: start;
   padding: 0 1rem;
-  flex-grow: 1;
+  display: grid;
+  gap: 1rem;
 `;
 
 const Template: FunctionComponent<{

@@ -6,17 +6,17 @@ import baseStyled, {
 } from "styled-components";
 
 enum Palette {
-  PRIMARY = "#1b435d",
-  SECONDARY = "#ff895d",
-  TEXT = "#222831",
-  BG = "#f6f5f5",
+  PRIMARY = "#015668",
+  SECONDARY = "#de7119",
+  TEXT = "#263f44",
+  BG = "#eeeeee",
 }
 
 enum Shape {
   BORDER = "0.125rem solid transparent",
   PADDING = "0.5rem 1rem",
   RADIUS = ".25rem",
-  MARGIN = "1rem 0",
+  GAP = "1rem",
   SHADOW = "",
 }
 

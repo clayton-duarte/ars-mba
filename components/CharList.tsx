@@ -9,13 +9,16 @@ import Link from "./Link";
 
 const StyledList = styled.ul`
   list-style: none;
+  display: grid;
   padding: 0;
+  margin: 0;
+  gap: 1rem;
 `;
 
 const StyledItem = styled.li`
   text-transform: capitalize;
   font-size: 1.25rem;
-  margin: 1rem 0;
+  display: grid;
 `;
 
 const Name = styled.span``;
@@ -24,7 +27,6 @@ const Stats = styled.span`
   color: ${(props) => props.theme.palette.SECONDARY};
   display: inline-block;
   text-align: right;
-  width: 4ch;
 `;
 
 const CharList = () => {

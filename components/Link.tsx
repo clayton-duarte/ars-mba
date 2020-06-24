@@ -7,6 +7,7 @@ const StyledA = styled.a`
   color: ${(props) => props.theme.palette.PRIMARY};
   text-decoration: none;
   &:hover {
+    color: ${(props) => props.theme.palette.SECONDARY};
     text-decoration: underline;
   }
 `;

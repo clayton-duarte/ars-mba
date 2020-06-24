@@ -15,6 +15,7 @@ export default styled.button`
   &:focus,
   &:active {
     background: ${(props) => props.theme.palette.SECONDARY};
+    outline: none;
   }
   &:disabled {
     filter: grayscale(100%);

@@ -10,7 +10,9 @@ export default styled.input`
   color: ${(props) => props.theme.palette.TEXT};
   width: 100%;
   margin: 0;
-  &:focus {
-    border: 0.125rem solid ${(props) => props.theme.palette.SECONDARY};
+  &:focus,
+  &:active {
+    border-color: ${(props) => props.theme.palette.SECONDARY};
+    outline: none;
   }
 `;

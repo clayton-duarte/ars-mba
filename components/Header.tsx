@@ -13,12 +13,12 @@ const StyledWelcome = styled.span`
 const StyledHeader = styled.header`
   background: ${(props) => props.theme.palette.PRIMARY};
   color: ${(props) => props.theme.palette.BG};
-  justify-content: space-between;
+  grid-template: auto / auto 1fr auto;
   place-items: center;
   position: sticky;
   font-size: 2rem;
   padding: 1rem;
-  display: flex;
+  display: grid;
   z-index: 999;
   top: 0;
 `;
@@ -27,7 +27,7 @@ const Header: FunctionComponent = () => {
   const router = useRouter();
   const { user, doLogout } = useUser(router);
 
-  if (!user) return null;
+  if (!user) return <span />;
 
   return (
     <StyledHeader>

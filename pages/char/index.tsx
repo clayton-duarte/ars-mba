@@ -19,6 +19,7 @@ const UserPage: NextPage<{ user: User }> = () => {
     return (
       <>
         <RiRefreshLine role="button" onClick={() => router.reload()} />
+        <span />
         <RiUserAddLine role="button" onClick={() => router.push("/char/new")} />
       </>
     );

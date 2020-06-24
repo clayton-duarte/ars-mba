@@ -11,6 +11,15 @@ import PageTemplate from "../../../components/PageTemplate";
 import ActionsTable from "../../../components/ActionsTable";
 import StatsTable from "../../../components/StatsTable";
 import { useChar } from "../../../providers/char";
+import { styled } from "../../../providers/theme";
+
+const CharPageTemplate = styled.section`
+  display: grid;
+  gap: 1rem;
+  @media (min-width: 768px) {
+    grid-template: auto / 1fr 1fr;
+  }
+`;
 
 const CharPage: NextPage = () => {
   const router = useRouter();
@@ -49,8 +58,10 @@ const CharPage: NextPage = () => {
       footerContent={renderFooterContent()}
       title={currentChar?.name}
     >
-      <StatsTable char={currentChar} />
-      <ActionsTable char={currentChar} />
+      <CharPageTemplate>
+        <StatsTable char={currentChar} />
+        <ActionsTable char={currentChar} />
+      </CharPageTemplate>
     </PageTemplate>
   );
 };

@@ -13,11 +13,10 @@ import { styled } from "../providers/theme";
 
 const Wrapper = styled.aside`
   color: ${(props) => props.theme.palette.PRIMARY};
-  justify-content: center;
-  align-items: center;
+  place-items: center;
   font-size: 8rem;
-  display: flex;
-  height: 100vh;
+  display: grid;
+  height: 100%;
 `;
 
 const PageLoader: FunctionComponent = () => {

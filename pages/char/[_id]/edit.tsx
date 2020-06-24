@@ -38,6 +38,7 @@ const EditCharPage: NextPage = () => {
     return (
       <>
         <RiCloseLine role="button" onClick={handleClickCancel} />
+        <span />
         <RiCheckLine role="button" onClick={handleClickConfirm} />
       </>
     );

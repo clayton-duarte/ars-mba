@@ -6,11 +6,23 @@ import { NextPage } from "next";
 import PageTemplate from "../components/PageTemplate";
 import { styled } from "../providers/theme";
 
-const Row = styled.section`
+const Grid = styled.section`
+  grid-template: auto / auto auto;
   justify-content: center;
-  margin: -0.5rem;
-  flex-wrap: wrap;
-  display: flex;
+  display: grid;
+  gap: 1rem;
+  @media (min-width: 600px) {
+    grid-template: auto / auto auto auto;
+  }
+  @media (min-width: 768px) {
+    grid-template: auto / auto auto auto auto;
+  }
+  @media (min-width: 1024px) {
+    grid-template: auto / auto auto auto auto auto;
+  }
+  @media (min-width: 1200px) {
+    grid-template: auto / auto auto auto auto auto auto;
+  }
 `;
 
 const Card = styled.button`
@@ -18,17 +30,14 @@ const Card = styled.button`
   border-color: ${({ theme }) => theme.palette.PRIMARY};
   border-radius: ${({ theme }) => theme.shape.RADIUS};
   background: ${({ theme }) => theme.palette.BG};
-  padding: ${({ theme }) => theme.shape.PADDING};
   color: ${({ theme }) => theme.palette.PRIMARY};
   text-transform: uppercase;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  place-items: center;
   font-weight: 700;
   cursor: pointer;
-  margin: 0.5rem;
-  display: flex;
+  display: grid;
   height: 10rem;
+  padding: 1rem;
   width: 10rem;
   &:disabled {
     filter: grayscale(100%);
@@ -36,7 +45,6 @@ const Card = styled.button`
   }
   > svg {
     font-size: 5rem;
-    margin-bottom: 1rem;
   }
 `;
 
@@ -45,7 +53,7 @@ const HomePage: NextPage = () => {
 
   return (
     <PageTemplate title="dashboard">
-      <Row>
+      <Grid>
         <Card onClick={() => router.push("/char")}>
           <RiFolderUserLine />
           <span>characters</span>
@@ -58,7 +66,7 @@ const HomePage: NextPage = () => {
               soon
             </Card>
           ))}
-      </Row>
+      </Grid>
     </PageTemplate>
   );
 };

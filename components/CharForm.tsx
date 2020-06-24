@@ -31,7 +31,6 @@ const CharForm: FunctionComponent<CharFormProps> = ({
     <>
       <Fieldset>
         <Label>name</Label>
-        <br />
         <Input
           value={formData.name || ""}
           placeholder="Leroy Jenkins"
@@ -43,7 +42,6 @@ const CharForm: FunctionComponent<CharFormProps> = ({
       {stats.map((statName) => (
         <Fieldset key={statName}>
           <Label>{statName}</Label>
-          <br />
           <Input
             value={formData[statName] || ""}
             onChange={handleChange}
