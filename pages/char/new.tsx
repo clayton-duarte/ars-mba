@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RiUserUnfollowLine, RiUserFollowLine } from "react-icons/ri";
+import { FcDisapprove, FcApprove } from "react-icons/fc";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
@@ -24,9 +24,9 @@ const AddCharPage: NextPage = () => {
   const renderFooterContent = () => {
     return (
       <>
-        <RiUserUnfollowLine role="button" onClick={handleBack} />
+        <FcDisapprove role="button" onClick={handleBack} />
         <span />
-        <RiUserFollowLine role="button" onClick={handleSubmit} />
+        <FcApprove role="button" onClick={handleSubmit} />
       </>
     );
   };

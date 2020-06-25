@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { RiHome2Line, RiLogoutBoxRLine } from "react-icons/ri";
+import { FcHome, FcExport } from "react-icons/fc";
 import { useRouter } from "next/router";
 
 import { useUser } from "../providers/user";
@@ -31,9 +31,9 @@ const Header: FunctionComponent = () => {
 
   return (
     <StyledHeader>
-      <RiHome2Line role="button" onClick={() => router.push("/")} />
+      <FcHome role="button" onClick={() => router.push("/")} />
       <StyledWelcome>Welcome {user.username}</StyledWelcome>
-      <RiLogoutBoxRLine role="button" onClick={doLogout} />
+      <FcExport role="button" onClick={doLogout} />
     </StyledHeader>
   );
 };

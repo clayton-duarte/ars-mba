@@ -1,5 +1,5 @@
 import React from "react";
-import { RiCheckLine, RiCloseLine } from "react-icons/ri";
+import { FcUndo, FcBadDecision } from "react-icons/fc";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
@@ -27,9 +27,9 @@ const DeleteCharPage: NextPage = () => {
   const renderFooterContent = () => {
     return (
       <>
-        <RiCloseLine role="button" onClick={handleClickCancel} />
+        <FcUndo role="button" onClick={handleClickCancel} />
         <span />
-        <RiCheckLine role="button" onClick={handleClickConfirm} />
+        <FcBadDecision role="button" onClick={handleClickConfirm} />
       </>
     );
   };

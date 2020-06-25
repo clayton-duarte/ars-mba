@@ -1,5 +1,5 @@
 import React from "react";
-import { RiFolderUserLine } from "react-icons/ri";
+import { FcFolder } from "react-icons/fc";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
@@ -55,7 +55,7 @@ const HomePage: NextPage = () => {
     <PageTemplate title="dashboard">
       <Grid>
         <Card onClick={() => router.push("/char")}>
-          <RiFolderUserLine />
+          <FcFolder />
           <span>characters</span>
         </Card>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { RiUserAddLine, RiRefreshLine } from "react-icons/ri";
+import { FcGoodDecision, FcMakeDecision } from "react-icons/fc";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
@@ -18,9 +18,12 @@ const UserPage: NextPage<{ user: User }> = () => {
   const renderFooterContent = () => {
     return (
       <>
-        <RiRefreshLine role="button" onClick={() => router.reload()} />
+        <FcMakeDecision role="button" onClick={() => router.reload()} />
         <span />
-        <RiUserAddLine role="button" onClick={() => router.push("/char/new")} />
+        <FcGoodDecision
+          onClick={() => router.push("/char/new")}
+          role="button"
+        />
       </>
     );
   };

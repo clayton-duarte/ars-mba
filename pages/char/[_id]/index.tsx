@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
+import { FcUndo, FcNeutralDecision, FcBadDecision } from "react-icons/fc";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
-import {
-  RiArrowLeftLine,
-  RiUserUnfollowLine,
-  RiUserSettingsLine,
-} from "react-icons/ri";
 
 import PageTemplate from "../../../components/PageTemplate";
 import ActionsTable from "../../../components/ActionsTable";
@@ -46,9 +42,9 @@ const CharPage: NextPage = () => {
   const renderFooterContent = () => {
     return (
       <>
-        <RiArrowLeftLine role="button" onClick={handleClickBack} />
-        <RiUserUnfollowLine role="button" onClick={handleClickDelete} />
-        <RiUserSettingsLine role="button" onClick={handleClickEdit} />
+        <FcUndo role="button" onClick={handleClickBack} />
+        <FcBadDecision role="button" onClick={handleClickDelete} />
+        <FcNeutralDecision role="button" onClick={handleClickEdit} />
       </>
     );
   };
