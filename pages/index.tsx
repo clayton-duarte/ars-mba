@@ -31,9 +31,10 @@ const Card = styled.button`
   border-radius: ${({ theme }) => theme.shape.RADIUS};
   background: ${({ theme }) => theme.palette.BG};
   color: ${({ theme }) => theme.palette.PRIMARY};
-  text-transform: uppercase;
+  text-transform: capitalize;
   place-items: center;
   font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
   display: grid;
   height: 10rem;

@@ -6,9 +6,9 @@ import baseStyled, {
 } from "styled-components";
 
 enum Palette {
-  PRIMARY = "#015668",
-  SECONDARY = "#de7119",
-  TEXT = "#263f44",
+  PRIMARY = "#484848",
+  SECONDARY = "#666666",
+  TEXT = "#222222",
   BG = "#eeeeee",
 }
 
@@ -21,7 +21,7 @@ enum Shape {
 }
 
 enum Font {
-  FAMILY = "'Play', sans-serif",
+  FAMILY = "'Baloo 2', sans-serif",
   SIZE = "1rem",
 }
 
