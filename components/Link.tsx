@@ -5,10 +5,9 @@ import { styled } from "../providers/theme";
 
 const StyledA = styled.a`
   color: ${(props) => props.theme.palette.PRIMARY};
-  text-decoration: none;
+  text-decoration: underline;
   &:hover {
     color: ${(props) => props.theme.palette.SECONDARY};
-    text-decoration: underline;
   }
 `;
 

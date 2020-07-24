@@ -23,6 +23,10 @@ const StyledItem = styled.li`
 
 const Name = styled.span``;
 
+const Text = styled.p`
+  margin: 0;
+`;
+
 const Stats = styled.span`
   color: ${(props) => props.theme.palette.SECONDARY};
   display: inline-block;
@@ -42,20 +46,29 @@ const CharList = () => {
   };
 
   useEffect(() => {
-    getCharList();
+    if (!charList) getCharList();
   }, []);
 
   if (!charList) return <SkeletonLoader />;
 
   return (
     <StyledList>
-      {charList.map(({ _id, name, ...stats }) => (
-        <StyledItem key={_id}>
-          <Link href="/char/[_id]" as={`/char/${_id}`}>
-            <Stats>[{reduceStats(stats)}]</Stats> <Name>{name}</Name>
-          </Link>
-        </StyledItem>
-      ))}
+      {charList.length ? (
+        charList.map(({ _id, name, ...stats }) => (
+          <StyledItem key={_id}>
+            <Link href="/char/[_id]" as={`/char/${_id}`}>
+              <Stats>[{reduceStats(stats)}]</Stats> <Name>{name}</Name>
+            </Link>
+          </StyledItem>
+        ))
+      ) : (
+        <>
+          <Text>You don't have any characters yet</Text>
+          <Text>
+            <Link href="/char/new">Click here to create your first one</Link>
+          </Text>
+        </>
+      )}
     </StyledList>
   );
 };

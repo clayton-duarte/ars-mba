@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { FcHome, FcExport } from "react-icons/fc";
 import { useRouter } from "next/router";
 
@@ -25,7 +25,11 @@ const StyledHeader = styled.header`
 
 const Header: FunctionComponent = () => {
   const router = useRouter();
-  const { user, doLogout } = useUser(router);
+  const { user, getUser, doLogout } = useUser(router);
+
+  useEffect(() => {
+    if (!user) getUser();
+  }, []);
 
   if (!user) return <span />;
 

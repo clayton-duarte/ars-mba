@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FcGoodDecision, FcMakeDecision } from "react-icons/fc";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
@@ -11,7 +11,11 @@ import { User } from "../../types";
 
 const UserPage: NextPage<{ user: User }> = () => {
   const router = useRouter();
-  const { user } = useUser(router);
+  const { user, getUser } = useUser(router);
+
+  useEffect(() => {
+    if (!user) getUser();
+  }, []);
 
   if (!user) return <PageLoader />;
 

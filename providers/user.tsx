@@ -41,6 +41,18 @@ export function useUser(router: NextRouter) {
   const [user, dispatch] = useContext<[User, Dispatch<Action>]>(UserContext);
   const { apiClient, errorHandler } = useAxios(router);
 
+  async function getUser() {
+    try {
+      const { data } = await apiClient.get<User>("/user");
+      dispatch({
+        type: ActionTypes.GET_USER,
+        payload: data,
+      });
+    } catch (err) {
+      errorHandler(err);
+    }
+  }
+
   async function doLogin(formData: User) {
     try {
       const { data } = await apiClient.post("/login", formData);
@@ -68,28 +80,11 @@ export function useUser(router: NextRouter) {
     }
   }
 
-  return { user, doLogin, doLogout };
+  return { user, getUser, doLogin, doLogout };
 }
 
 const Provider: FunctionComponent = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { apiClient, errorHandler } = useAxios(useRouter());
-
-  async function getUser() {
-    try {
-      const { data } = await apiClient.get<User>("/user");
-      dispatch({
-        type: ActionTypes.GET_USER,
-        payload: data,
-      });
-    } catch (err) {
-      errorHandler(err);
-    }
-  }
-
-  useEffect(() => {
-    if (!state) getUser();
-  }, []);
 
   return (
     <UserContext.Provider value={[state, dispatch]}>

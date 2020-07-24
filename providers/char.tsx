@@ -68,6 +68,12 @@ export function useChar(router: NextRouter) {
     }
   };
 
+  const clearCharList = () => {
+    dispatch({
+      type: ActionTypes.CLEAR_CHAR_LIST,
+    });
+  };
+
   const getCurrentChar = async (charId: string) => {
     try {
       const { data } = await apiClient.get<Character>("/char", {
@@ -90,12 +96,11 @@ export function useChar(router: NextRouter) {
 
   const validateCharFormData = (formData: Partial<Character>) => {
     return (
-      formData &&
-      formData.endurance &&
-      formData.accuracy &&
-      formData.mobility &&
-      formData.strength &&
-      formData.name
+      formData?.endurance &&
+      formData?.accuracy &&
+      formData?.mobility &&
+      formData?.strength &&
+      formData?.name
     );
   };
 
@@ -106,7 +111,10 @@ export function useChar(router: NextRouter) {
           "/createChar",
           formData
         );
-        if (data) router.push("/char/[_id]", `/char/${data._id}`);
+        if (data) {
+          router.push("/char/[_id]", `/char/${data._id}`);
+          clearCharList();
+        }
       } catch (err) {
         errorHandler(err);
       }
@@ -135,7 +143,11 @@ export function useChar(router: NextRouter) {
           params: { charId },
         }
       );
-      if (data.isSuccess) router.push("/char");
+
+      if (data.isSuccess) {
+        router.push("/char");
+        clearCharList();
+      }
     } catch (err) {
       errorHandler(err);
     }
