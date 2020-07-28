@@ -7,7 +7,8 @@ const Grid = styled.section`
   background: ${(props) => rgba(props.theme.palette.PRIMARY, 0.25)};
   border-radius: ${(props) => props.theme.shape.RADIUS};
   justify-content: space-between;
-  grid-template: auto / 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
   cursor: pointer;
   display: grid;
   gap: 0.5rem;

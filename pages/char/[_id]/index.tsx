@@ -13,7 +13,8 @@ const CharPageTemplate = styled.section`
   display: grid;
   gap: 1rem;
   @media (min-width: 768px) {
-    grid-template: auto / 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
   }
 `;
 

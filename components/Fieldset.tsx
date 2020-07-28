@@ -1,7 +1,8 @@
 import { styled } from "../providers/theme";
 
 export default styled.div`
-  grid-template: auto auto / auto;
+  grid-template-rows: repeat(2, auto);
+  grid-template-columns: auto;
   display: grid;
   border: none;
   gap: 0.5rem;

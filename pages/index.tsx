@@ -7,21 +7,22 @@ import PageTemplate from "../components/PageTemplate";
 import { styled } from "../providers/theme";
 
 const Grid = styled.section`
-  grid-template: auto / auto auto;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: auto;
   justify-content: center;
   display: grid;
   gap: 1rem;
   @media (min-width: 600px) {
-    grid-template: auto / auto auto auto;
+    grid-template-columns: repeat(3, auto);
   }
   @media (min-width: 768px) {
-    grid-template: auto / auto auto auto auto;
+    grid-template-columns: repeat(4, auto);
   }
   @media (min-width: 1024px) {
-    grid-template: auto / auto auto auto auto auto;
+    grid-template-columns: repeat(5, auto);
   }
   @media (min-width: 1200px) {
-    grid-template: auto / auto auto auto auto auto auto;
+    grid-template-columns: repeat(5, auto);
   }
 `;
 
@@ -32,7 +33,7 @@ const Card = styled.button`
   background: ${({ theme }) => theme.palette.BG};
   color: ${({ theme }) => theme.palette.PRIMARY};
   text-transform: capitalize;
-  place-items: center;
+  place-content: center;
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;

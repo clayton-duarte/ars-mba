@@ -9,7 +9,8 @@ import { Character } from "../types";
 import SubTitle from "./SubTitle";
 
 const Wrapper = styled.section`
-  grid-template: auto / 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
   display: grid;
   gap: 1rem;
 `;

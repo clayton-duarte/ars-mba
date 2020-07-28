@@ -13,7 +13,8 @@ const StyledWelcome = styled.span`
 const StyledHeader = styled.header`
   background: ${(props) => props.theme.palette.PRIMARY};
   color: ${(props) => props.theme.palette.BG};
-  grid-template: auto / auto 1fr auto;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto;
   place-items: center;
   position: sticky;
   font-size: 2rem;

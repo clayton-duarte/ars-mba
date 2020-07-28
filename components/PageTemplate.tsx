@@ -6,7 +6,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 const StyledMain = styled.main`
-  grid-template: auto 1fr auto / 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto;
   min-height: 100%;
   display: grid;
   gap: 1rem;
