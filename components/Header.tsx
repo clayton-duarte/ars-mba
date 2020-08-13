@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useEffect } from "react";
+import { useSession, signIn, signOut } from "next-auth/client";
 import { FcHome, FcExport } from "react-icons/fc";
 import { useRouter } from "next/router";
 
-import { useUser } from "../providers/user";
+import { useUser } from "../providers/session";
 import { styled } from "../providers/theme";
 
 const StyledWelcome = styled.span`
@@ -26,7 +27,7 @@ const StyledHeader = styled.header`
 
 const Header: FunctionComponent = () => {
   const router = useRouter();
-  const { user, getUser, doLogout } = useUser(router);
+  const { user, getUser } = useUser(router);
 
   useEffect(() => {
     if (!user) getUser();

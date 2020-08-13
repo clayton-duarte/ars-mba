@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from "react";
 
+import SessionProvider from "./session";
 import ThemeProvider from "./theme";
-import UserProvider from "./user";
 import CharProvider from "./char";
 
 const Providers: FunctionComponent = ({ children }) => {
   return (
     <ThemeProvider>
-      <UserProvider>
+      <SessionProvider>
         <CharProvider>{children}</CharProvider>
-      </UserProvider>
+      </SessionProvider>
     </ThemeProvider>
   );
 };

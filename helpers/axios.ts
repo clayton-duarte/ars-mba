@@ -5,18 +5,17 @@ export function useAxios(router: NextRouter) {
   const apiClient = Axios.create({ baseURL: "/api" });
 
   function errorHandler(err) {
-    // TODO > real error notification
-
+    // TODO > real error handling
     // Axios errors
-    if (err.response?.data) alert(err.response.data);
-    if (err.response?.status === 401) return router.push("/login");
-    if (err.response?.status === 403) return router.push("/login");
-    if (err.response?.status === 404) return router.push("/404");
-    if (err.response) throw new Error(JSON.stringify(err.response));
-
-    // Unknown error
-    alert("Unknown error!");
-    throw new Error(JSON.stringify(err));
+    switch (err.response?.status) {
+      case 401:
+      case 403:
+      case 404:
+        console.log(err.response.data);
+        return;
+      default:
+        throw new Error(JSON.stringify(err.response));
+    }
   }
 
   return { apiClient, errorHandler };

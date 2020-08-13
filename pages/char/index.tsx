@@ -1,23 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { FcGoodDecision, FcMakeDecision } from "react-icons/fc";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
 import PageTemplate from "../../components/PageTemplate";
-import PageLoader from "../../components/PageLoader";
 import CharList from "../../components/CharList";
-import { useUser } from "../../providers/user";
 import { User } from "../../types";
 
 const UserPage: NextPage<{ user: User }> = () => {
   const router = useRouter();
-  const { user, getUser } = useUser(router);
-
-  useEffect(() => {
-    if (!user) getUser();
-  }, []);
-
-  if (!user) return <PageLoader />;
 
   const renderFooterContent = () => {
     return (

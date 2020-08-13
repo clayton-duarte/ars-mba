@@ -6,8 +6,10 @@ import React, {
   useEffect,
   Dispatch,
 } from "react";
+import { useSession, signIn, signOut } from "next-auth/client";
 import { useRouter } from "next/router";
 
+import PageLoader from "../components/PageLoader";
 import { useAxios } from "../helpers/axios";
 import { NextRouter } from "next/router";
 import { User } from "../types";
@@ -85,6 +87,9 @@ export function useUser(router: NextRouter) {
 
 const Provider: FunctionComponent = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [loading] = useSession();
+
+  if (loading) return <PageLoader />;
 
   return (
     <UserContext.Provider value={[state, dispatch]}>
