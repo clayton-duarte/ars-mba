@@ -1,6 +1,5 @@
-import React, { FunctionComponent, useEffect } from "react";
-import { useSession, signIn, signOut } from "next-auth/client";
-import { FcHome, FcExport } from "react-icons/fc";
+import React, { FunctionComponent } from "react";
+import { FcHome, FcExport, FcImport } from "react-icons/fc";
 import { useRouter } from "next/router";
 
 import { useUser } from "../providers/session";
@@ -26,20 +25,24 @@ const StyledHeader = styled.header`
 `;
 
 const Header: FunctionComponent = () => {
+  const { user, signIn, signOut } = useUser();
   const router = useRouter();
-  const { user, getUser } = useUser(router);
 
-  useEffect(() => {
-    if (!user) getUser();
-  }, []);
+  const renderWelcome = () => {
+    if (user) return `Welcome ${user.name}`;
+    return "please signin";
+  };
 
-  if (!user) return <span />;
+  const renderRightAction = () => {
+    if (user) return <FcExport role="button" onClick={signOut} />;
+    return <FcImport role="button" onClick={() => signIn("cognito")} />;
+  };
 
   return (
     <StyledHeader>
       <FcHome role="button" onClick={() => router.push("/")} />
-      <StyledWelcome>Welcome {user.username}</StyledWelcome>
-      <FcExport role="button" onClick={doLogout} />
+      <StyledWelcome>{renderWelcome()}</StyledWelcome>
+      {renderRightAction()}
     </StyledHeader>
   );
 };

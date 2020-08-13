@@ -13,9 +13,5 @@ export const CharacterSchema = new mongoose.Schema<Character>({
   accuracy: Number,
   mobility: Number,
   name: String,
-  // Allows to populate while querying
-  user: {
-    type: "ObjectId",
-    ref: "User",
-  },
+  user: String,
 });

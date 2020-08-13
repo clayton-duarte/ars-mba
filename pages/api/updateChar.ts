@@ -1,5 +1,5 @@
-import { CharacterModel } from "../../server/models";
 import { HandlerWithSession } from "../../types";
+import { CharacterModel } from "../../server/models";
 import {
   withParameterValidation,
   withSession,
@@ -11,7 +11,7 @@ const handler: HandlerWithSession = async (req, res) => {
 
   try {
     await dbConnect();
-    await CharacterModel.updateOne({ _id }, data);
+    await CharacterModel.updateOne({ _id, user: req.session.user.email }, data);
     return res.json({
       isSuccess: true,
     });

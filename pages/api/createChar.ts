@@ -7,13 +7,11 @@ import {
 } from "../../server/helpers";
 
 const handler: HandlerWithSession = async (req, res) => {
-  const user = req.session.get("user");
-
   try {
     await dbConnect();
     const newChar = await CharacterModel.create({
       ...req.body,
-      user: user._id,
+      user: req.session.user.email,
     });
     return res.json(newChar);
   } catch (err) {

@@ -1,17 +1,15 @@
 import { HandlerWithSession } from "../../types";
+import { dbConnect, withSession } from "../../server/helpers";
 import { CharacterModel } from "../../server/models";
-import { withSession, dbConnect } from "../../server/helpers";
 
 const handler: HandlerWithSession = async (req, res) => {
-  const user = req.session.get("user");
-
   await dbConnect();
   try {
-    const chars = await CharacterModel.find({ user: user._id });
+    const chars = await CharacterModel.find({ user: req.session.user.email });
     return res.json(chars);
   } catch (err) {
     return res.status(500).json(err);
   }
 };
 
-export default withSession(handler);
+export default withSession(withSession(handler));

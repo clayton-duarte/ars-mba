@@ -1,33 +1,12 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { withIronSession } from "next-iron-session";
+import { getSession } from "next-auth/client";
 import mongoose from "mongoose";
 
-import { HandlerWithSession, NextApiRequestWithSession } from "../types";
-
-export function withSession<T = any>(
-  handler: HandlerWithSession<T>,
-  isPrivate = true
-) {
-  function protectedHandler(
-    req: NextApiRequestWithSession,
-    res: NextApiResponse
-  ) {
-    if (isPrivate) {
-      const user = req.session.get("user");
-      if (!user) {
-        req.session.destroy();
-        return res.status(401).send("Please log in!");
-      }
-    }
-    return handler(req, res);
-  }
-
-  return withIronSession(protectedHandler, {
-    cookieOptions: { secure: process.env.NODE_ENV === "production" },
-    password: process.env.SESSION_PASSWORD,
-    cookieName: "survival-iron-session",
-  });
-}
+import {
+  NextApiRequestWithSession,
+  HandlerWithSession,
+  Session,
+} from "../types";
 
 export async function dbConnect() {
   if (!mongoose.connections[0].readyState) {
@@ -57,5 +36,19 @@ export function withParameterValidation(...parameters: string[]) {
 
       return handler(req, res);
     };
+  };
+}
+
+export function withSession(handler: HandlerWithSession) {
+  return async (req: NextApiRequest, res: NextApiResponse) => {
+    const session: Session = await getSession({ req });
+
+    if (!session) {
+      return res.status(401).end();
+    }
+
+    const reqWithSession = { ...req, session } as NextApiRequestWithSession;
+
+    return handler(reqWithSession, res);
   };
 }

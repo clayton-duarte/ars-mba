@@ -1,10 +1,15 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { Session } from "next-iron-session";
+import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 export interface User {
-  username: string;
-  password: string;
-  _id?: string;
+  email: string;
+  image: string;
+  name: string;
+}
+
+export interface Session {
+  accessToken: string;
+  expires: string;
+  user: User;
 }
 
 export interface NextApiRequestWithSession extends NextApiRequest {
