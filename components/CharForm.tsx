@@ -1,5 +1,6 @@
 import React, { ChangeEvent, Dispatch, FunctionComponent } from "react";
 
+import { validateCharForm } from "../helpers/validators";
 import { Character } from "../types";
 import Fieldset from "./Fieldset";
 import Input from "./Input";
@@ -15,8 +16,7 @@ const CharForm: FunctionComponent<CharFormProps> = ({
   formData = {},
 }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    const newFormData = { ...formData, [name]: value };
+    const newFormData = validateCharForm(formData, e);
     return setFormData(newFormData);
   };
 
