@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FcApprove, FcUndo } from "react-icons/fc";
+import { FcCheckmark, FcUndo } from "react-icons/fc";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
@@ -39,7 +39,7 @@ const EditCharPage: NextPage = () => {
       <>
         <FcUndo role="button" onClick={handleClickCancel} />
         <span />
-        <FcApprove role="button" onClick={handleClickConfirm} />
+        <FcCheckmark role="button" onClick={handleClickConfirm} />
       </>
     );
   };

@@ -1,5 +1,5 @@
 import React from "react";
-import { FcUndo, FcBadDecision } from "react-icons/fc";
+import { FcCheckmark, FcUndo } from "react-icons/fc";
 import { useRouter } from "next/router";
 import { NextPage } from "next";
 
@@ -9,6 +9,7 @@ import { styled } from "../../../providers/theme";
 
 const StyledText = styled.p`
   font-size: 1.25rem;
+  margin: 0;
 `;
 
 const DeleteCharPage: NextPage = () => {
@@ -29,7 +30,7 @@ const DeleteCharPage: NextPage = () => {
       <>
         <FcUndo role="button" onClick={handleClickCancel} />
         <span />
-        <FcBadDecision role="button" onClick={handleClickConfirm} />
+        <FcCheckmark role="button" onClick={handleClickConfirm} />
       </>
     );
   };
