@@ -15,8 +15,11 @@ const StyledMain = styled.main`
 
 const StyledContent = styled.article`
   align-content: start;
+  max-width: 1024px;
   padding: 0 1rem;
+  margin: 0 auto;
   display: grid;
+  width: 100%;
   gap: 1rem;
 `;
 

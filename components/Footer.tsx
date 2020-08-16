@@ -1,17 +1,34 @@
+import React, { FunctionComponent } from "react";
 import { styled } from "../providers/theme";
 
-export default styled.footer`
+const StyledFooter = styled.footer`
   background: ${(props) => props.theme.palette.PRIMARY};
   color: ${(props) => props.theme.palette.BG};
-  grid-template-columns: auto 1fr auto;
-  justify-content: space-between;
-  grid-template-rows: auto;
-  place-items: center;
   position: sticky;
-  font-size: 2rem;
   display: grid;
-  padding: 1rem;
   z-index: 999;
   bottom: 0;
-  gap: 1rem;
 `;
+
+const StyledContainer = styled.div`
+  grid-template-columns: repeat(3, auto);
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1024px;
+  font-size: 2rem;
+  padding: 0 1rem;
+  margin: 0 auto;
+  padding: 1rem;
+  display: grid;
+  width: 100%;
+`;
+
+const Footer: FunctionComponent = ({ children }) => {
+  return (
+    <StyledFooter>
+      <StyledContainer>{children}</StyledContainer>
+    </StyledFooter>
+  );
+};
+
+export default Footer;

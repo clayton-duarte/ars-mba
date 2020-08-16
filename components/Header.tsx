@@ -13,15 +13,23 @@ const StyledWelcome = styled.span`
 const StyledHeader = styled.header`
   background: ${(props) => props.theme.palette.PRIMARY};
   color: ${(props) => props.theme.palette.BG};
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto;
-  place-items: center;
   position: sticky;
-  font-size: 2rem;
-  padding: 1rem;
   display: grid;
   z-index: 999;
   top: 0;
+`;
+
+const StyledContainer = styled.div`
+  grid-template-columns: repeat(3, auto);
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1024px;
+  font-size: 2rem;
+  padding: 0 1rem;
+  margin: 0 auto;
+  padding: 1rem;
+  display: grid;
+  width: 100%;
 `;
 
 const Header: FunctionComponent = () => {
@@ -40,9 +48,11 @@ const Header: FunctionComponent = () => {
 
   return (
     <StyledHeader>
-      <FcHome role="button" onClick={() => router.push("/")} />
-      <StyledWelcome>{renderWelcome()}</StyledWelcome>
-      {renderRightAction()}
+      <StyledContainer>
+        <FcHome role="button" onClick={() => router.push("/")} />
+        <StyledWelcome>{renderWelcome()}</StyledWelcome>
+        {renderRightAction()}
+      </StyledContainer>
     </StyledHeader>
   );
 };
