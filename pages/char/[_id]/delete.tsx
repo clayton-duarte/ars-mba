@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { NextPage } from "next";
 
 import PageTemplate from "../../../components/PageTemplate";
+import { useToaster } from "../../../providers/toaster";
 import { useChar } from "../../../providers/char";
 import { styled } from "../../../providers/theme";
 
@@ -14,11 +15,13 @@ const StyledText = styled.p`
 
 const DeleteCharPage: NextPage = () => {
   const router = useRouter();
+  const { showToaster } = useToaster();
   const { deleteChar } = useChar(router);
   const charId = router.query._id;
 
   const handleClickConfirm = async () => {
     deleteChar(String(charId));
+    showToaster("Char deleted", 3, "SUCCESS");
   };
 
   const handleClickCancel = () => {

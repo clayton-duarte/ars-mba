@@ -5,12 +5,14 @@ import { NextPage } from "next";
 
 import SkeletonLoader from "../../../components/SkeletonLoader";
 import PageTemplate from "../../../components/PageTemplate";
+import { useToaster } from "../../../providers/toaster";
 import CharForm from "../../../components/CharForm";
 import { useChar } from "../../../providers/char";
 import { Character } from "../../../types";
 
 const EditCharPage: NextPage = () => {
   const router = useRouter();
+  const { showToaster } = useToaster();
   const [formData, setFormData] = useState<Partial<Character>>();
   const { currentChar, clearCurrentChar, updateChar, getCurrentChar } = useChar(
     router
@@ -27,6 +29,7 @@ const EditCharPage: NextPage = () => {
   }, [currentChar]);
 
   const handleClickConfirm = async () => {
+    showToaster("Char edited", 3, "SUCCESS");
     updateChar(formData);
   };
 
